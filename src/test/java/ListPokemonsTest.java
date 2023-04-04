@@ -4,7 +4,9 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.filters;
 import static io.restassured.RestAssured.given;
+import static utils.CustomApiListener.withCustomTemplates;
 
 public class ListPokemonsTest {
 
@@ -13,6 +15,7 @@ public class ListPokemonsTest {
     @Test
     @Description("Проверяет ограничивается ли список")
     public void testExpectedListSize() {
+        filters(withCustomTemplates());
         Assertions.assertEquals(5, given()
                 .when()
                 .contentType(ContentType.JSON)
@@ -28,6 +31,7 @@ public class ListPokemonsTest {
     @Test
     @Description("Проверяет наличие имени у каждого покемона из списка")
     public void testCheckPokeHaveName() {
+        filters(withCustomTemplates());
         given()
                 .when()
                 .contentType(ContentType.JSON)
