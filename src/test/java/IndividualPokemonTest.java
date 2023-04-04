@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.stream.Collectors;
 
+import static io.restassured.RestAssured.filters;
 import static io.restassured.RestAssured.given;
+import static utils.CustomApiListener.withCustomTemplates;
 
 public class IndividualPokemonTest {
 
@@ -19,6 +21,7 @@ public class IndividualPokemonTest {
     @Test
     @Description("Проверяет наличие способности у покемона")
     public void availabilityAbilityTest() {
+        filters(withCustomTemplates());
     Assertions.assertTrue(given()
                 .when()
                     .contentType(ContentType.JSON)
@@ -38,6 +41,7 @@ public class IndividualPokemonTest {
     @Test
     @Description("Проверяет отсутствие способности у покемона")
     public void lackAbilityTest() {
+        filters(withCustomTemplates());
         Assertions.assertFalse(given()
                 .when()
                     .contentType(ContentType.JSON)
@@ -57,6 +61,7 @@ public class IndividualPokemonTest {
     @Test
     @Description("Проверяет что вес первого покемона меньше чем у второго")
     public void disparitySizeTest(){
+        filters(withCustomTemplates());
     Assertions.assertTrue(getWeightPokemon(NAME_RATTATA) < getWeightPokemon(NAME_PIDGEOTTO));
     }
 
