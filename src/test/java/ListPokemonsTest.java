@@ -18,13 +18,14 @@ public class ListPokemonsTest {
         filters(withCustomTemplates());
         Assertions.assertEquals(5, given()
                 .when()
-                .contentType(ContentType.JSON)
-                .get(GET_REQUST + "?limit=5")
+                    .contentType(ContentType.JSON)
+                    .get(GET_REQUST + "?limit=5")
                 .then()
-                .extract()
-                .body()
-                .jsonPath()
-                .getList("results", ResultListInstance.class)
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .jsonPath()
+                    .getList("results", ResultListInstance.class)
                 .size());
     }
 
@@ -34,12 +35,13 @@ public class ListPokemonsTest {
         filters(withCustomTemplates());
         given()
                 .when()
-                .contentType(ContentType.JSON)
-                .get(GET_REQUST)
+                    .contentType(ContentType.JSON)
+                    .get(GET_REQUST)
                 .then()
-                .extract().body().jsonPath().getList("results", ResultListInstance.class)
+                    .statusCode(200)
+                    .extract().body().jsonPath().getList("results", ResultListInstance.class)
                 .stream()
-                .map(ResultListInstance::getName)
-                .forEach(x -> Assertions.assertFalse(x.isEmpty()));
+                    .map(ResultListInstance::getName)
+                    .forEach(x -> Assertions.assertFalse(x.isEmpty()));
     }
 }
